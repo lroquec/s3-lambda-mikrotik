@@ -68,6 +68,12 @@ resource "aws_lambda_function" "mikrotik_processor" {
   layers = [aws_lambda_layer_version.pandas_layer.arn]
 }
 
+resource "aws_lambda_layer_version" "pandas_layer" {
+  filename            = "pandas_layer.zip"
+  layer_name          = "pandas"
+  description         = "Pandas layer for Python"
+  compatible_runtimes = ["python3.9"]
+}
 
 # Lambda permission for S3
 resource "aws_lambda_permission" "allow_bucket" {
