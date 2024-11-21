@@ -26,6 +26,7 @@ def create_mikrotik_script(df):
     return '\n'.join(script_lines)
 
 def process_file(s3_client, bucket, key):
+    OUTPUT_PATH = os.environ.get('OUTPUT_PATH', 'output/')
     """Process input file from S3 and create Mikrotik script."""
     try:
         # Get file from S3
