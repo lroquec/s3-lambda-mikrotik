@@ -1,6 +1,10 @@
+locals {
+  bucket_name = "${var.project_name}-bucket"
+}
+
 # S3 Bucket
 resource "aws_s3_bucket" "mikrotik_bucket" {
-  bucket = var.bucket_name
+  bucket = local.bucket_name
 }
 
 # S3 trigger for Lambda
