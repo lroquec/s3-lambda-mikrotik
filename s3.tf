@@ -14,6 +14,7 @@ resource "aws_s3_bucket" "mikrotik_bucket" {
 resource "aws_s3_bucket_notification" "bucket_notification" {
   bucket = aws_s3_bucket.mikrotik_bucket.id
 
+  depends_on = [aws_lambda_permission.allow_bucket]
   lambda_function {
     lambda_function_arn = aws_lambda_function.mikrotik_processor.arn
     events              = ["s3:ObjectCreated:*"]
@@ -27,4 +28,16 @@ resource "aws_s3_bucket_notification" "bucket_notification" {
     filter_prefix       = var.input_file_path
     filter_suffix       = ".xlsx"
   }
+}
+
+resource "aws_s3_object" "input_prefix" {
+  bucket       = aws_s3_bucket.mikrotik_bucket.id
+  key          = var.input_file_path
+  content_type = "application/x-directory"
+}
+
+resource "aws_s3_object" "output_prefix" {
+  bucket       = aws_s3_bucket.mikrotik_bucket.id
+  key          = var.output_file_path
+  content_type = "application/x-directory"
 }
