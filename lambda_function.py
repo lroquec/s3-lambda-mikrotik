@@ -1,12 +1,9 @@
+import os
 import pandas as pd
 import re
 import boto3
 import io
 from urllib.parse import unquote_plus
-
-# Get environment variables
-INPUT_PATH = os.environ.get('INPUT_PATH', 'input/')
-OUTPUT_PATH = os.environ.get('OUTPUT_PATH', 'output/')
 
 def normalize_mac(mac):
     pass
@@ -81,6 +78,10 @@ def process_file(s3_client, bucket, key):
         raise e
 
 def lambda_handler(event, context):
+    # Get environment variables
+    INPUT_PATH = os.environ.get('INPUT_PATH', 'input/')
+    OUTPUT_PATH = os.environ.get('OUTPUT_PATH', 'output/')
+
     s3_client = boto3.client('s3')
     
     for record in event['Records']:
