@@ -5,6 +5,9 @@ locals {
 # S3 Bucket
 resource "aws_s3_bucket" "mikrotik_bucket" {
   bucket = local.bucket_name
+  tags = merge(local.common_tags, {
+    Name = local.bucket_name
+  })
 }
 
 # S3 trigger for Lambda

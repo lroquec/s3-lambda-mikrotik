@@ -66,6 +66,8 @@ resource "aws_lambda_function" "mikrotik_processor" {
   }
 
   layers = [aws_lambda_layer_version.pandas_layer.arn]
+
+  tags = local.common_tags
 }
 
 resource "aws_lambda_layer_version" "pandas_layer" {
