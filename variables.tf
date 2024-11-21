@@ -4,12 +4,6 @@ variable "project_name" {
 
 }
 
-variable "bucket_name" {
-  description = "The name of the S3 bucket"
-  type        = string
-
-}
-
 variable "input_file_path" {
   description = "The path for the input files"
   type        = string
